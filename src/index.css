@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #00b7af;
+  --dark: #10181f;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl;
+  }
+
+  .glass-card-dark {
+    @apply bg-black/30 backdrop-blur-md border border-white/10 rounded-2xl shadow-2xl;
+  }
+
+  .text-clamp-title {
+    font-size: clamp(2rem, 8vw, 6rem);
+  }
+
+  .text-clamp-body {
+    font-size: clamp(0.875rem, 2vw, 1.25rem);
+  }
+}
+
+/* Custom scrollbar for forecast slider */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Animations */
+@keyframes rain {
+  0% { transform: translateY(-100vh); }
+  100% { transform: translateY(100vh); }
+}
+
+.rain-drop {
+  position: absolute;
+  background: linear-gradient(transparent, rgba(255, 255, 255, 0.4));
+  width: 1px;
+  height: 80px;
+  top: -100px;
+  animation: rain linear infinite;
+}
