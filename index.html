@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+  <link rel="manifest" href="./manifest.json">
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg?v=v1a2b3" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,5 +21,14 @@
   <body class="bg-dark text-white font-['Inter',sans-serif] min-h-screen overflow-x-hidden">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx?v=v1a2b3"></script>
-  </body>
+    <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('./sw.js')
+          .then(function (reg) { console.log('[PWA] SW registered:', reg.scope); })
+          .catch(function (err) { console.warn('[PWA] SW registration failed:', err); });
+      });
+    }
+  </script>
+</body>
 </html>
