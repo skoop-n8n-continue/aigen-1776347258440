@@ -16,11 +16,11 @@ const Clock = () => {
         onClick={toggleFormat}
         className="cursor-pointer group relative"
       >
-        <h1 className="text-clamp-title font-bold tracking-tighter text-white drop-shadow-2xl font-['JetBrains_Mono']">
+        <h1 className="text-clamp-title font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-primary/50 drop-shadow-[0_0_30px_rgba(0,183,175,0.3)]">
           {formattedTime}
         </h1>
-        <div className="absolute -right-12 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-primary text-xs px-2 py-1 rounded">
-          {is24Hour ? '24H' : '12H'}
+        <div className="absolute -right-16 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-primary text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg">
+          {is24Hour ? '24H MODE' : '12H MODE'}
         </div>
       </div>
 

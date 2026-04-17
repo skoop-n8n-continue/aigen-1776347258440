@@ -21,32 +21,45 @@ const AQIInfo = ({ aqi }) => {
     <motion.div
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
-      className="glass-card-dark p-6 w-full max-w-md"
+      className={`glass-card-dark p-6 w-full max-w-md border-l-4 shadow-lg transition-all duration-500`}
+      style={{ borderLeftColor: currentLevel.color.replace('bg-', '') }}
     >
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
           <Activity className="text-primary" />
-          <h3 className="font-bold uppercase tracking-widest text-sm">Air Quality Index</h3>
+          <h3 className="font-bold uppercase tracking-widest text-sm">Air Quality</h3>
         </div>
-        <div className={`${currentLevel.color} text-white px-3 py-1 rounded-full text-xs font-bold`}>
+        <div className={`${currentLevel.color} text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg shadow-white/5`}>
           {currentLevel.label}
         </div>
       </div>
 
       <div className="flex items-end gap-4 mb-6">
-        <span className="text-5xl font-bold tracking-tighter">
+        <span className={`text-6xl font-black tracking-tighter ${currentLevel.text}`}>
           {Math.round(aqi.pm2_5)}
         </span>
         <div className="flex flex-col mb-1">
           <span className="text-xs font-bold text-white/40 uppercase">PM2.5 (µg/m³)</span>
-          <span className={`${currentLevel.text} text-sm font-bold`}>{currentLevel.label}</span>
+          <span className={`${currentLevel.text} text-sm font-bold animate-pulse`}>
+            {currentLevel.label}
+          </span>
         </div>
       </div>
 
+      {/* AQI Meter */}
+      <div className="w-full h-2 bg-white/10 rounded-full mb-6 flex overflow-hidden">
+        {levels.map((l, i) => (
+          <div
+            key={i}
+            className={`h-full flex-1 ${l.color} ${epaIndex === i + 1 ? 'opacity-100 ring-2 ring-white scale-y-125' : 'opacity-30'}`}
+          />
+        ))}
+      </div>
+
       <div className="grid grid-cols-3 gap-3 mb-4">
-        <AQIPollutant label="PM10" value={Math.round(aqi.pm10)} />
-        <AQIPollutant label="NO2" value={Math.round(aqi.no2)} />
-        <AQIPollutant label="O3" value={Math.round(aqi.o3)} />
+        <AQIPollutant label="PM10" value={Math.round(aqi.pm10)} color={currentLevel.text} />
+        <AQIPollutant label="NO2" value={Math.round(aqi.no2)} color={currentLevel.text} />
+        <AQIPollutant label="O3" value={Math.round(aqi.o3)} color={currentLevel.text} />
       </div>
 
       <p className="text-xs text-white/60 leading-relaxed bg-white/5 p-3 rounded-lg border border-white/5 italic">
@@ -56,10 +69,10 @@ const AQIInfo = ({ aqi }) => {
   );
 };
 
-const AQIPollutant = ({ label, value }) => (
-  <div className="bg-white/5 p-2 rounded-lg text-center border border-white/5">
-    <p className="text-[10px] text-white/40 font-bold mb-1">{label}</p>
-    <p className="text-sm font-bold">{value}</p>
+const AQIPollutant = ({ label, value, color }) => (
+  <div className="bg-white/5 p-2 rounded-lg text-center border border-white/5 group hover:border-white/10 transition-colors">
+    <p className="text-[10px] text-white/40 font-bold mb-1 group-hover:text-white/60">{label}</p>
+    <p className={`text-sm font-bold ${color}`}>{value}</p>
   </div>
 );
 
